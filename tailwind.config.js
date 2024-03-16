@@ -2,8 +2,11 @@
 export default {
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			fontFamily: {
+				notoSans: ['"Noto Sans"', 'sans-serif'],
+			},
+		},
 	},
 	plugins: [],
 };
-
