@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
@@ -25,15 +26,22 @@ function Post({ _id, createdAt, updatedAt, username, title, body }: PostType) {
 			</div>
 
 			<div className="col-start-1 col-end-3 md:col-start-2 md:col-end-3">
-				<h2 className="font-bold">{title}</h2>
+				<Link to={`/post/${_id}`}>
+					<h2 className="font-bold">{title}</h2>
+				</Link>
 				<button onClick={() => setIsBodyExpanded(!isBodyExpanded)}>
 					{isBodyExpanded ? 'Collapse' : 'Expand'}
 				</button>
-				<p
-					className={classNames(isBodyExpanded ? 'block' : 'hidden', 'text-sm')}
-				>
-					{body}
-				</p>
+				<Link to={`/post/${_id}`}>
+					<p
+						className={classNames(
+							isBodyExpanded ? 'block' : 'hidden',
+							'text-sm'
+						)}
+					>
+						{body}
+					</p>
+				</Link>
 			</div>
 		</div>
 	);
