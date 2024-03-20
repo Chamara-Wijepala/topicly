@@ -15,11 +15,13 @@ function Home() {
 
 	return (
 		<>
-			{posts.map((post) => (
-				<Fragment key={post._id}>
-					<Post {...post} />
-				</Fragment>
-			))}
+			<section className="flex flex-col gap-6">
+				{posts.map((post) => (
+					<Fragment key={post._id}>
+						<Post {...post} />
+					</Fragment>
+				))}
+			</section>
 		</>
 	);
 }
