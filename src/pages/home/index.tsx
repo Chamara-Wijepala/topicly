@@ -1,7 +1,7 @@
 import { useState, useEffect, Fragment } from 'react';
 import axios from 'axios';
-import Post from '../../components/post';
-import { PostType } from '../../types/post.type';
+import Post from 'components/post';
+import { PostType } from 'types/post.type';
 
 function Home() {
 	const [posts, setPosts] = useState<Array<PostType>>([]);
