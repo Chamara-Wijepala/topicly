@@ -4,7 +4,7 @@ import Post from 'components/post';
 import { PostType } from 'types/post.type';
 
 function Home() {
-	const [posts, setPosts] = useState<Array<PostType>>([]);
+	const [posts, setPosts] = useState<Array<PostType> | null>(null);
 
 	useEffect(() => {
 		axios
@@ -16,11 +16,15 @@ function Home() {
 	return (
 		<>
 			<section className="flex flex-col gap-6">
-				{posts.map((post) => (
-					<Fragment key={post._id}>
-						<Post {...post} />
-					</Fragment>
-				))}
+				{posts ? (
+					posts.map((post) => (
+						<Fragment key={post._id}>
+							<Post {...post} />
+						</Fragment>
+					))
+				) : (
+					<div>Loading...</div>
+				)}
 			</section>
 		</>
 	);
