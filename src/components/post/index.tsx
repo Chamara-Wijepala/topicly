@@ -17,8 +17,8 @@ function Post({ _id, createdAt, updatedAt, username, title, body }: PostType) {
 
 			<div className="col-start-2 flex items-center gap-1">
 				<p className="font-bold">{username}</p>
-				<span className="w-1 h-1 rounded-full bg-slate-600"></span>
-				<p className="text-sm">
+				<span className="w-1 h-1 rounded-full bg-slate-700"></span>
+				<p className="text-sm text-slate-700">
 					{isPostUpdated
 						? `Updated ${isoStringToRelativeTime(updatedAt)}`
 						: isoStringToRelativeTime(createdAt)}
