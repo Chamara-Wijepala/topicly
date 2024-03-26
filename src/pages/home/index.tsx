@@ -1,6 +1,6 @@
 import { useState, useEffect, Fragment } from 'react';
-import axios from 'axios';
 import Post from 'components/post';
+import axios from 'api/axios';
 import { PostType } from 'types/post.type';
 
 function Home() {
@@ -8,7 +8,7 @@ function Home() {
 
 	useEffect(() => {
 		axios
-			.get('http://localhost:5500/posts/')
+			.get('/posts/')
 			.then((response) => setPosts(response.data))
 			.catch((err) => console.error(err));
 	}, []);

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { BsThreeDots } from 'react-icons/bs';
+import axios from 'api/axios';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
 
@@ -14,7 +14,7 @@ function PostDetails() {
 
 	useEffect(() => {
 		axios
-			.get(`http://localhost:5500/posts/${id}`)
+			.get(`/posts/${id}`)
 			.then((response) => setPost(response.data))
 			.catch((err) => console.error(err));
 	}, []);
