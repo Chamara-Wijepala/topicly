@@ -49,7 +49,7 @@ function Register() {
 	}, [password, passwordMatch]);
 
 	return (
-		<section>
+		<section className="mt-4 md:mt-12 bg-white p-8 md:p-16 shadow-md rounded-md">
 			<h2 className="text-3xl md:text-4xl font-bold">Welcome to Topicly</h2>
 			<p className="text-slate-500">Create an account</p>
 

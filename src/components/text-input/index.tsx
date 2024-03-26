@@ -54,7 +54,7 @@ function TextInput({
 			<div
 				className={classNames(
 					isInputFocused ? 'block' : 'sr-only',
-					'bg-white p-2 flex gap-2 rounded-md shadow-md mt-4 z-50'
+					'p-2 flex gap-2 mt-4'
 				)}
 			>
 				<AiOutlineExclamationCircle className="m-1 md:min-h-5 md:min-w-5" />
