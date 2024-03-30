@@ -2,12 +2,18 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TextInput from 'components/text-input';
 import axios from 'api/axios';
+import handleLogin from 'utils/handleLogin';
+import { CurrentUserType } from 'types/currentUser.type';
+
+type Props = {
+	setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserType | null>>;
+};
 
 const USERNAME_REGEX = /^[a-zA-Z0-9 _.-]{3,20}$/;
 const PWD_REGEX =
 	/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_+=[\]{};':"\\|,.<>/?`~]{8,24}$/;
 
-function Register() {
+function Register({ setCurrentUser }: Props) {
 	const [username, setUsername] = useState('');
 	const [isUsernameValid, setIsUsernameValid] = useState(false);
 
@@ -25,12 +31,22 @@ function Register() {
 		e.preventDefault();
 
 		try {
-			const response = await axios.post(
-				'/users/',
-				JSON.stringify({ username, password })
-			);
-			// TEMPORARY
-			console.log(response);
+			const response = await axios.post('/users/register', {
+				username,
+				password,
+			});
+
+			if (response.status === 201) {
+				const authResponse = await handleLogin('/auth/login', {
+					username,
+					password,
+				});
+
+				setCurrentUser({
+					username,
+					accessToken: authResponse.data.accessToken,
+				});
+			}
 		} catch (error) {
 			console.error(error);
 		}

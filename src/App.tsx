@@ -1,9 +1,17 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Home from 'pages/home';
 import PostDetails from 'pages/post-details';
 import Register from 'pages/register';
+import { CurrentUserType } from 'types/currentUser.type';
 
 function App() {
+	const [currentUser, setCurrentUser] = useState<CurrentUserType | null>(null);
+
+	useEffect(() => {
+		console.log(currentUser);
+	}, [currentUser]);
+
 	return (
 		<>
 			<main>
@@ -11,7 +19,10 @@ function App() {
 					<Routes>
 						<Route path="/" element={<Home />} />
 						<Route path="/post/:id" element={<PostDetails />} />
-						<Route path="/register" element={<Register />} />
+						<Route
+							path="/register"
+							element={<Register setCurrentUser={setCurrentUser} />}
+						/>
 					</Routes>
 				</div>
 			</main>
