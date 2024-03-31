@@ -18,7 +18,7 @@ function TextInput({
 	setState: React.Dispatch<React.SetStateAction<string>>;
 	isStateValid: boolean;
 	label: string;
-	note: string;
+	note?: string;
 	isPassword?: boolean;
 }) {
 	const [isInputFocused, setIsInputFocused] = useState(false);
@@ -82,15 +82,17 @@ function TextInput({
 				)}
 			</div>
 
-			<div
-				className={classNames(
-					isInputFocused ? 'block' : 'sr-only',
-					'p-2 flex gap-2 mt-4'
-				)}
-			>
-				<AiOutlineExclamationCircle className="m-1 md:min-h-5 md:min-w-5" />
-				<p id="note">{note}</p>
-			</div>
+			{note && (
+				<div
+					className={classNames(
+						isInputFocused ? 'block' : 'sr-only',
+						'p-2 flex gap-2 mt-4'
+					)}
+				>
+					<AiOutlineExclamationCircle className="m-1 md:min-h-5 md:min-w-5" />
+					<p id="note">{note}</p>
+				</div>
+			)}
 		</div>
 	);
 }
