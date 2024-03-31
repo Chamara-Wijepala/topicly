@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import { AiOutlineExclamationCircle } from 'react-icons/ai';
+import { AiFillEye } from 'react-icons/ai';
+import { AiFillEyeInvisible } from 'react-icons/ai';
 
 function TextInput({
 	state,
@@ -10,15 +12,34 @@ function TextInput({
 	isStateValid,
 	label,
 	note,
+	isPassword = false,
 }: {
 	state: string;
 	setState: React.Dispatch<React.SetStateAction<string>>;
 	isStateValid: boolean;
 	label: string;
 	note: string;
+	isPassword?: boolean;
 }) {
 	const [isInputFocused, setIsInputFocused] = useState(false);
 	const [showValidationStatus, setShowValidationStatus] = useState(false);
+	const [inputType, setInputType] = useState<'text' | 'password'>('text');
+	const [autoComplete, setAutoComplete] = useState<'off' | 'new-password'>(
+		'off'
+	);
+
+	function toggleInputType(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+		e.preventDefault();
+
+		inputType === 'text' ? setInputType('password') : setInputType('text');
+	}
+
+	useEffect(() => {
+		if (isPassword) {
+			setInputType('password');
+			setAutoComplete('new-password');
+		}
+	}, [isPassword]);
 
 	return (
 		<div className="relative">
@@ -27,10 +48,10 @@ function TextInput({
 			</label>
 			<div className="flex gap-2 items-center border-b-2 border-slate-250">
 				<input
-					type="text"
+					type={inputType}
 					value={state}
 					id={label}
-					autoComplete="off"
+					autoComplete={autoComplete}
 					required
 					aria-invalid={isStateValid ? 'false' : 'true'}
 					aria-describedby="note"
@@ -40,7 +61,7 @@ function TextInput({
 						setIsInputFocused(false);
 						setShowValidationStatus(true);
 					}}
-					className="py-2 outline-none md:text-xl grow bg-transparent"
+					className="py-2 outline-none md:text-xl grow bg-transparent min-w-0"
 				/>
 
 				{showValidationStatus &&
@@ -49,6 +70,16 @@ function TextInput({
 					) : (
 						<AiOutlineCloseCircle className="md:min-h-6 md:min-w-6 text-rose-500" />
 					))}
+
+				{isPassword && (
+					<button onClick={(e) => toggleInputType(e)}>
+						{inputType === 'text' ? (
+							<AiFillEyeInvisible className="min-h-6 min-w-6" />
+						) : (
+							<AiFillEye className="min-h-6 min-w-6" />
+						)}
+					</button>
+				)}
 			</div>
 
 			<div

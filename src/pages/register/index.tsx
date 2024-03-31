@@ -83,6 +83,7 @@ function Register({ setCurrentUser }: Props) {
 					isStateValid={isPasswordValid}
 					label="Password"
 					note="Must be at least 8 characters and 24 characters max. Must have at least 1 lowercase letter, 1 uppercase letter and 1 number. Special characters are allowed but not required"
+					isPassword
 				/>
 				<TextInput
 					state={passwordMatch}
@@ -90,6 +91,7 @@ function Register({ setCurrentUser }: Props) {
 					isStateValid={isPasswordMatchValid}
 					label="Repeat Password"
 					note="Must match original password."
+					isPassword
 				/>
 
 				<div>
