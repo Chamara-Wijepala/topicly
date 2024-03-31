@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from 'pages/home';
 import PostDetails from 'pages/post-details';
 import Register from 'pages/register';
+import Login from 'pages/login';
 import { CurrentUserType } from 'types/currentUser.type';
 
 function App() {
@@ -22,6 +23,10 @@ function App() {
 						<Route
 							path="/register"
 							element={<Register setCurrentUser={setCurrentUser} />}
+						/>
+						<Route
+							path="/login"
+							element={<Login setCurrentUser={setCurrentUser} />}
 						/>
 					</Routes>
 				</div>
