@@ -5,6 +5,7 @@ import Home from 'pages/home';
 import PostDetails from 'pages/post-details';
 import Register from 'pages/register';
 import Login from 'pages/login';
+import CreatePost from 'pages/create-post';
 import { CurrentUserType } from 'types/currentUser.type';
 
 function App() {
@@ -29,6 +30,10 @@ function App() {
 						<Route
 							path="/login"
 							element={<Login setCurrentUser={setCurrentUser} />}
+						/>
+						<Route
+							path="/create"
+							element={<CreatePost currentUser={currentUser} />}
 						/>
 					</Routes>
 				</div>

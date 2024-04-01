@@ -33,11 +33,13 @@ function Header({
 
 				{currentUser === null ? (
 					<div className="flex items-center gap-4">
-						<Link to={'/login'}>Log In</Link>
-						<Link to={'/register'}>Sign Up</Link>
+						<Link to="/login">Log In</Link>
+						<Link to="/register">Sign Up</Link>
 					</div>
 				) : (
-					<>
+					<div className="flex items-center gap-4">
+						<Link to="/create">New</Link>
+
 						<button onClick={() => setIsPopupOpen(!isPopupOpen)}>
 							<div className="text-2xl bg-emerald-400 p-4 rounded-full aspect-square leading-4">
 								{firstChar}
@@ -67,7 +69,7 @@ function Header({
 								</button>
 							</div>
 						)}
-					</>
+					</div>
 				)}
 			</div>
 		</header>
