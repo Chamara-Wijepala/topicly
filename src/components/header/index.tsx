@@ -2,13 +2,25 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoLogOutOutline } from 'react-icons/io5';
+import axios from 'api/axios';
 import logo from 'assets/icons/logo.svg';
 import { CurrentUserType } from 'types/currentUser.type';
 
-function Header({ currentUser }: { currentUser: CurrentUserType | null }) {
+function Header({
+	currentUser,
+	setCurrentUser,
+}: {
+	currentUser: CurrentUserType | null;
+	setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserType | null>>;
+}) {
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const firstChar = currentUser?.username.charAt(0);
+
+	async function handleLogout() {
+		await axios.get('/auth/logout');
+		setCurrentUser(null);
+	}
 
 	return (
 		<header className="bg-white shadow-md p-4">
@@ -46,7 +58,10 @@ function Header({ currentUser }: { currentUser: CurrentUserType | null }) {
 									{firstChar}
 								</div>
 								<p className="mb-4 break-all">{currentUser.username}</p>
-								<button className="flex items-center gap-1">
+								<button
+									className="flex items-center gap-1"
+									onClick={handleLogout}
+								>
 									<span>Log Out</span>
 									<IoLogOutOutline />
 								</button>
