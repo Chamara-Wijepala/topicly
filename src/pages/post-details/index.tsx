@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
+import BackButton from 'components/back-button';
 import axios from 'api/axios';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
@@ -21,6 +22,10 @@ function PostDetails() {
 
 	return (
 		<section>
+			<div className="my-8">
+				<BackButton />
+			</div>
+
 			{post ? (
 				<div className="flex flex-col gap-4">
 					<div className="grid grid-cols-[min-content_1fr_min-content] gap-2 md:gap-4">

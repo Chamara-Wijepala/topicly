@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import TextInput from 'components/text-input';
+import BackButton from 'components/back-button';
 import handleLogin from 'utils/handleLogin';
 import { CurrentUserType } from 'types/currentUser.type';
 
@@ -59,7 +60,10 @@ function Login({ setCurrentUser }: Props) {
 					isPassword
 				/>
 
-				<button onClick={handleSubmit}>Sign In</button>
+				<div>
+					<BackButton />
+					<button onClick={handleSubmit}>Sign In</button>
+				</div>
 			</form>
 
 			<p>

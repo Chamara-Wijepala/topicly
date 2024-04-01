@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import BackButton from 'components/back-button';
 import TextInput from 'components/text-input';
 import axios from 'api/axios';
 import handleLogin from 'utils/handleLogin';
@@ -22,8 +22,6 @@ function Register({ setCurrentUser }: Props) {
 
 	const [passwordMatch, setPasswordMatch] = useState('');
 	const [isPasswordMatchValid, setIsPasswordMatchValid] = useState(false);
-
-	const navigate = useNavigate();
 
 	async function handleSubmit(
 		e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -95,7 +93,7 @@ function Register({ setCurrentUser }: Props) {
 				/>
 
 				<div>
-					<button onClick={() => navigate(-1)}>Back</button>
+					<BackButton />
 					<button onClick={(e) => handleSubmit(e)}>Sign Up</button>
 				</div>
 			</form>
