@@ -53,8 +53,8 @@ function App() {
 
 	return (
 		<>
+			<Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
 			<main>
-				<Header currentUser={currentUser} setCurrentUser={setCurrentUser} />
 				<div className="max-w-[768px] mx-auto p-4 border-red-400 border-2">
 					<Routes>
 						<Route path="/" element={<Home />} />
