@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoLogOutOutline } from 'react-icons/io5';
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 import logo from 'assets/icons/logo.svg';
 import { CurrentUserType } from 'types/currentUser.type';
 
@@ -18,7 +18,7 @@ function Header({
 	const firstChar = currentUser?.username.charAt(0);
 
 	async function handleLogout() {
-		await axios.get('/auth/logout');
+		await axiosInstance.get('/auth/logout');
 		setCurrentUser(null);
 	}
 

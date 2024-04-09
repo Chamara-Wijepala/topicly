@@ -1,13 +1,13 @@
 import { useState, useEffect, Fragment } from 'react';
 import Post from 'components/post';
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 import { PostType } from 'types/post.type';
 
 function Home() {
 	const [posts, setPosts] = useState<Array<PostType> | null>(null);
 
 	useEffect(() => {
-		axios
+		axiosInstance
 			.get('/posts/')
 			.then((response) => setPosts(response.data))
 			.catch((err) => console.error(err));

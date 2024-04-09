@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import BackButton from 'components/back-button';
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
 
@@ -14,7 +14,7 @@ function PostDetails() {
 	const isPostUpdated = post?.createdAt !== post?.updatedAt;
 
 	useEffect(() => {
-		axios
+		axiosInstance
 			.get(`/posts/${id}`)
 			.then((response) => setPost(response.data))
 			.catch((err) => console.error(err));

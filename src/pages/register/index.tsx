@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import BackButton from 'components/back-button';
 import TextInput from 'components/text-input';
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 import handleLogin from 'utils/handleLogin';
 import { CurrentUserType } from 'types/currentUser.type';
 
@@ -29,7 +29,7 @@ function Register({ setCurrentUser }: Props) {
 		e.preventDefault();
 
 		try {
-			const response = await axios.post('/users/register', {
+			const response = await axiosInstance.post('/users/register', {
 				username,
 				password,
 			});

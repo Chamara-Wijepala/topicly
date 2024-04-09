@@ -1,4 +1,4 @@
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 
 type UserType = {
 	username: string;
@@ -6,7 +6,7 @@ type UserType = {
 };
 
 async function handleLogin(endpoint: string, userData: UserType) {
-	const response = await axios.post(endpoint, userData);
+	const response = await axiosInstance.post(endpoint, userData);
 
 	return response;
 }

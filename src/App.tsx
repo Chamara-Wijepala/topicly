@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 import Header from 'components/header';
 import Home from 'pages/home';
 import PostDetails from 'pages/post-details';
@@ -13,7 +13,7 @@ function App() {
 	const [currentUser, setCurrentUser] = useState<CurrentUserType | null>(null);
 
 	async function refresh() {
-		const response = await axios.get('/auth/refresh');
+		const response = await axiosInstance.get('/auth/refresh');
 
 		if (currentUser) {
 			setCurrentUser({
@@ -25,7 +25,7 @@ function App() {
 		return response.data.accessToken;
 	}
 
-	axios.interceptors.response.use(
+	axiosInstance.interceptors.response.use(
 		(response) => response,
 		async (error) => {
 			const originalRequest = error.config;
@@ -39,7 +39,7 @@ function App() {
 
 				originalRequest.headers.authorization = `Bearer ${token}`;
 
-				return axios(originalRequest);
+				return axiosInstance(originalRequest);
 			}
 
 			return Promise.reject(error);

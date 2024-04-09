@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'api/axios';
+import axiosInstance from 'api/axiosInstance';
 import { CurrentUserType } from 'types/currentUser.type';
 
 function CreatePost({ currentUser }: { currentUser: CurrentUserType | null }) {
@@ -16,7 +16,7 @@ function CreatePost({ currentUser }: { currentUser: CurrentUserType | null }) {
 		e.preventDefault();
 
 		try {
-			const response = await axios.post(
+			const response = await axiosInstance.post(
 				'/posts/',
 				{
 					username: currentUser?.username,
