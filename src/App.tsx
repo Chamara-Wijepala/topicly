@@ -7,6 +7,7 @@ import PostDetails from 'pages/post-details';
 import Register from 'pages/register';
 import Login from 'pages/login';
 import CreatePost from 'pages/create-post';
+import UpdatePost from 'pages/update-post';
 import { CurrentUserType } from 'types/currentUser.type';
 
 function App() {
@@ -63,8 +64,11 @@ function App() {
 			<main>
 				<div className="max-w-[768px] mx-auto p-4 border-red-400 border-2">
 					<Routes>
-						<Route path="/" element={<Home />} />
-						<Route path="/post/:id" element={<PostDetails />} />
+						<Route path="/" element={<Home currentUser={currentUser} />} />
+						<Route
+							path="/post/:id"
+							element={<PostDetails currentUser={currentUser} />}
+						/>
 						<Route
 							path="/register"
 							element={<Register setCurrentUser={setCurrentUser} />}
@@ -76,6 +80,10 @@ function App() {
 						<Route
 							path="/create"
 							element={<CreatePost currentUser={currentUser} />}
+						/>
+						<Route
+							path="/update/:id"
+							element={<UpdatePost currentUser={currentUser} />}
 						/>
 					</Routes>
 				</div>

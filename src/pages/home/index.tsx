@@ -2,8 +2,9 @@ import { useState, useEffect, Fragment } from 'react';
 import Post from 'components/post';
 import axiosInstance from 'api/axiosInstance';
 import { PostType } from 'types/post.type';
+import { CurrentUserType } from 'types/currentUser.type';
 
-function Home() {
+function Home({ currentUser }: { currentUser: CurrentUserType | null }) {
 	const [posts, setPosts] = useState<Array<PostType> | null>(null);
 
 	useEffect(() => {
@@ -19,7 +20,7 @@ function Home() {
 				{posts ? (
 					posts.map((post) => (
 						<Fragment key={post._id}>
-							<Post {...post} />
+							<Post {...post} currentUser={currentUser} />
 						</Fragment>
 					))
 				) : (

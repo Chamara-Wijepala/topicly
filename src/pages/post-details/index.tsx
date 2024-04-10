@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import BackButton from 'components/back-button';
 import axiosInstance from 'api/axiosInstance';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
+import { CurrentUserType } from 'types/currentUser.type';
 
-function PostDetails() {
+function PostDetails({ currentUser }: { currentUser: CurrentUserType | null }) {
 	const { id } = useParams();
 	const [post, setPost] = useState<PostType | null>(null);
+	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const firstChar = post?.username.charAt(0);
 	const isPostUpdated = post?.createdAt !== post?.updatedAt;
@@ -45,9 +47,19 @@ function PostDetails() {
 							</p>
 						</div>
 
-						<button className="self-start">
-							<BsThreeDots />
-						</button>
+						{currentUser?.username === post.username && (
+							<div className="relative">
+								<button onClick={() => setIsPopupOpen((prev) => !prev)}>
+									<BsThreeDots />
+								</button>
+
+								{isPopupOpen && (
+									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow">
+										<Link to={`/update/${post._id}`}>Update</Link>
+									</div>
+								)}
+							</div>
+						)}
 					</div>
 
 					<h2 className="text-lg font-bold md:text-3xl mt-4 md:mt-8 md:mb-4">
