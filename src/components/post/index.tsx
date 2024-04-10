@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import axiosInstance from 'api/axiosInstance';
 import { BsThreeDots } from 'react-icons/bs';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
@@ -8,6 +9,7 @@ import { CurrentUserType } from 'types/currentUser.type';
 
 type Props = PostType & {
 	currentUser: CurrentUserType | null;
+	removePostFromList(id: string): void;
 };
 
 function Post({
@@ -18,12 +20,21 @@ function Post({
 	title,
 	body,
 	currentUser,
+	removePostFromList,
 }: Props) {
 	const [isBodyExpanded, setIsBodyExpanded] = useState(false);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const firstChar = username.charAt(0);
 	const isPostUpdated = createdAt !== updatedAt;
+
+	async function handleDelete() {
+		const response = await axiosInstance.delete(`/posts/${_id}`);
+
+		if (response.status === 200) {
+			removePostFromList(_id);
+		}
+	}
 
 	return (
 		<div className="grid grid-cols-[min-content_1fr] gap-2 md:gap-x-4 text-slate-950">
@@ -51,8 +62,9 @@ function Post({
 						</button>
 
 						{isPopupOpen && (
-							<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow">
+							<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow gap-4">
 								<Link to={`/update/${_id}`}>Update</Link>
+								<button onClick={handleDelete}>Delete</button>
 							</div>
 						)}
 					</div>

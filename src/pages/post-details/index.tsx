@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
 import BackButton from 'components/back-button';
 import axiosInstance from 'api/axiosInstance';
@@ -9,11 +9,20 @@ import { CurrentUserType } from 'types/currentUser.type';
 
 function PostDetails({ currentUser }: { currentUser: CurrentUserType | null }) {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const [post, setPost] = useState<PostType | null>(null);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const firstChar = post?.username.charAt(0);
 	const isPostUpdated = post?.createdAt !== post?.updatedAt;
+
+	async function handleDelete() {
+		const response = await axiosInstance.delete(`/posts/${id}`);
+
+		if (response.status === 200) {
+			navigate('/');
+		}
+	}
 
 	useEffect(() => {
 		axiosInstance
@@ -54,8 +63,9 @@ function PostDetails({ currentUser }: { currentUser: CurrentUserType | null }) {
 								</button>
 
 								{isPopupOpen && (
-									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow">
+									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow gap-4">
 										<Link to={`/update/${post._id}`}>Update</Link>
+										<button onClick={handleDelete}>Delete</button>
 									</div>
 								)}
 							</div>

@@ -7,6 +7,14 @@ import { CurrentUserType } from 'types/currentUser.type';
 function Home({ currentUser }: { currentUser: CurrentUserType | null }) {
 	const [posts, setPosts] = useState<Array<PostType> | null>(null);
 
+	function removePostFromList(id: string) {
+		if (posts) {
+			const filteredPosts = posts.filter((post) => post._id !== id);
+
+			setPosts(filteredPosts);
+		}
+	}
+
 	useEffect(() => {
 		axiosInstance
 			.get('/posts/')
@@ -20,7 +28,11 @@ function Home({ currentUser }: { currentUser: CurrentUserType | null }) {
 				{posts ? (
 					posts.map((post) => (
 						<Fragment key={post._id}>
-							<Post {...post} currentUser={currentUser} />
+							<Post
+								{...post}
+								currentUser={currentUser}
+								removePostFromList={removePostFromList}
+							/>
 						</Fragment>
 					))
 				) : (
