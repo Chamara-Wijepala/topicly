@@ -25,26 +25,32 @@ function App() {
 		return response.data.accessToken;
 	}
 
-	axiosInstance.interceptors.response.use(
-		(response) => response,
-		async (error) => {
-			const originalRequest = error.config;
+	useEffect(() => {
+		const responseInterceptor = axiosInstance.interceptors.response.use(
+			(response) => response,
+			async (error) => {
+				const originalRequest = error.config;
 
-			// _retry is a custom property used to prevent axios from causing an
-			// infinite loop
-			if (error.response?.status === 401 && !originalRequest?._retry) {
-				originalRequest._retry = true;
+				// _retry is a custom property used to prevent axios from causing an
+				// infinite loop
+				if (error.response?.status === 401 && !originalRequest?._retry) {
+					originalRequest._retry = true;
 
-				const token = await refresh();
+					const token = await refresh();
 
-				originalRequest.headers.authorization = `Bearer ${token}`;
+					originalRequest.headers.authorization = `Bearer ${token}`;
 
-				return axiosInstance(originalRequest);
+					return axiosInstance(originalRequest);
+				}
+
+				return Promise.reject(error);
 			}
+		);
 
-			return Promise.reject(error);
-		}
-	);
+		return () => {
+			axiosInstance.interceptors.response.eject(responseInterceptor);
+		};
+	}, []);
 
 	// TEMP: Delete later
 	useEffect(() => {
