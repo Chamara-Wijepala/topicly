@@ -47,7 +47,7 @@ function Header({
 						</button>
 
 						{isPopupOpen && (
-							<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-20 absolute right-0 rounded-md flex flex-col items-center grow">
+							<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-20 absolute right-0 rounded-md flex flex-col items-center grow z-10">
 								<div className="min-w-full flex">
 									<button
 										onClick={() => setIsPopupOpen(false)}

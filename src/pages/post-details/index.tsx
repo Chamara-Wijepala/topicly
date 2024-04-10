@@ -63,7 +63,7 @@ function PostDetails({ currentUser }: { currentUser: CurrentUserType | null }) {
 								</button>
 
 								{isPopupOpen && (
-									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow gap-4">
+									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow gap-4 z-10">
 										<Link to={`/update/${post._id}`}>Update</Link>
 										<button onClick={handleDelete}>Delete</button>
 									</div>
