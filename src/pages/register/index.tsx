@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import BackButton from 'components/back-button';
 import Button from 'components/button';
 import TextInput from 'components/text-input';
@@ -104,6 +105,13 @@ function Register({ setCurrentUser }: Props) {
 					</Button>
 				</div>
 			</form>
+
+			<p>
+				Already have an account?{' '}
+				<Link to={'/register'} className="font-bold text-emerald-500">
+					Log in
+				</Link>
+			</p>
 		</section>
 	);
 }
