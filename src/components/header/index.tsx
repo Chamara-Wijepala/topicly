@@ -22,6 +22,7 @@ function Header({
 	async function handleLogout() {
 		await axiosInstance.get('/auth/logout');
 		setCurrentUser(null);
+		navigate('/');
 	}
 
 	return (
