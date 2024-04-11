@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import TextInput from 'components/text-input';
+import Button from 'components/button';
 import BackButton from 'components/back-button';
 import handleLogin from 'utils/handleLogin';
 import { CurrentUserType } from 'types/currentUser.type';
@@ -60,9 +61,15 @@ function Login({ setCurrentUser }: Props) {
 					isPassword
 				/>
 
-				<div>
+				<div className="flex gap-4 flex-col-reverse md:flex-row">
 					<BackButton />
-					<button onClick={handleSubmit}>Sign In</button>
+					<Button
+						variant="regular"
+						disabled={!isUsernameValid && !isPasswordValid}
+						onClick={handleSubmit}
+					>
+						Sign In
+					</Button>
 				</div>
 			</form>
 

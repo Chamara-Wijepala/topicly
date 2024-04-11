@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import BackButton from 'components/back-button';
+import Button from 'components/button';
 import TextInput from 'components/text-input';
 import axiosInstance from 'api/axiosInstance';
 import handleLogin from 'utils/handleLogin';
@@ -92,9 +93,15 @@ function Register({ setCurrentUser }: Props) {
 					isPassword
 				/>
 
-				<div>
+				<div className="flex gap-4 flex-col-reverse md:flex-row">
 					<BackButton />
-					<button onClick={(e) => handleSubmit(e)}>Sign Up</button>
+					<Button
+						variant="regular"
+						disabled={isUsernameValid && isPasswordValid}
+						onClick={(e) => handleSubmit(e)}
+					>
+						Sign Up
+					</Button>
 				</div>
 			</form>
 		</section>

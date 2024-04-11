@@ -1,8 +1,11 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
-import axiosInstance from 'api/axiosInstance';
 import { BsThreeDots } from 'react-icons/bs';
+import { MdCloseFullscreen } from 'react-icons/md';
+import { MdOpenInFull } from 'react-icons/md';
+import Button from 'components/button';
+import axiosInstance from 'api/axiosInstance';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
 import { PostType } from 'types/post.type';
 import { CurrentUserType } from 'types/currentUser.type';
@@ -22,6 +25,7 @@ function Post({
 	currentUser,
 	removePostFromList,
 }: Props) {
+	const navigate = useNavigate();
 	const [isBodyExpanded, setIsBodyExpanded] = useState(false);
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
@@ -62,9 +66,16 @@ function Post({
 						</button>
 
 						{isPopupOpen && (
-							<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow gap-4 z-10">
-								<Link to={`/update/${_id}`}>Update</Link>
-								<button onClick={handleDelete}>Delete</button>
+							<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col gap-4 z-10">
+								<Button
+									variant="neutral"
+									onClick={() => navigate(`/update/${_id}`)}
+								>
+									Update
+								</Button>
+								<Button variant="danger" onClick={handleDelete}>
+									Delete
+								</Button>
 							</div>
 						)}
 					</div>
@@ -76,9 +87,23 @@ function Post({
 					<h2 className="font-bold">{title}</h2>
 				</Link>
 
-				<button onClick={() => setIsBodyExpanded(!isBodyExpanded)}>
-					{isBodyExpanded ? 'Collapse' : 'Expand'}
-				</button>
+				<Button
+					variant="neutral"
+					square
+					onClick={() => setIsBodyExpanded(!isBodyExpanded)}
+				>
+					{isBodyExpanded ? (
+						<>
+							<span className="sr-only">Collapse text</span>
+							<MdCloseFullscreen className="text-sm" />
+						</>
+					) : (
+						<>
+							<span className="sr-only">Expand text</span>
+							<MdOpenInFull className="text-sm" />
+						</>
+					)}
+				</Button>
 
 				<Link to={`/post/${_id}`}>
 					<p

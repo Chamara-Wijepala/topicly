@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Button from 'components/button';
 import { AiOutlineClose } from 'react-icons/ai';
 import { IoLogOutOutline } from 'react-icons/io5';
 import axiosInstance from 'api/axiosInstance';
@@ -13,6 +14,7 @@ function Header({
 	currentUser: CurrentUserType | null;
 	setCurrentUser: React.Dispatch<React.SetStateAction<CurrentUserType | null>>;
 }) {
+	const navigate = useNavigate();
 	const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 	const firstChar = currentUser?.username.charAt(0);
@@ -33,12 +35,18 @@ function Header({
 
 				{currentUser === null ? (
 					<div className="flex items-center gap-4">
-						<Link to="/login">Log In</Link>
-						<Link to="/register">Sign Up</Link>
+						<Button variant="regular" onClick={() => navigate('/login')}>
+							Log In
+						</Button>
+						<Button variant="neutral" onClick={() => navigate('/register')}>
+							Sign Up
+						</Button>
 					</div>
 				) : (
 					<div className="flex items-center gap-4">
-						<Link to="/create">New</Link>
+						<Button variant="regular" onClick={() => navigate('/create')}>
+							New
+						</Button>
 
 						<button onClick={() => setIsPopupOpen(!isPopupOpen)}>
 							<div className="text-2xl bg-emerald-400 p-4 rounded-full aspect-square leading-4">
@@ -60,13 +68,10 @@ function Header({
 									{firstChar}
 								</div>
 								<p className="mb-4 break-all">{currentUser.username}</p>
-								<button
-									className="flex items-center gap-1"
-									onClick={handleLogout}
-								>
+								<Button variant="neutral" onClick={handleLogout}>
 									<span>Log Out</span>
 									<IoLogOutOutline />
-								</button>
+								</Button>
 							</div>
 						)}
 					</div>

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from 'components/button';
 import axiosInstance from 'api/axiosInstance';
 import { CurrentUserType } from 'types/currentUser.type';
 
@@ -69,11 +70,17 @@ function CreatePost({ currentUser }: { currentUser: CurrentUserType | null }) {
 					<div className="flex justify-between">
 						<span className="text-slate-500 text-sm">{body.length}/500</span>
 
-						<div>
-							<button onClick={() => navigate(-1)}>Cancel</button>
-							<button disabled={!isPostValid} onClick={handleSubmit}>
+						<div className="flex gap-2 mt-3 md:mt-4">
+							<Button variant="neutral" onClick={() => navigate(-1)}>
+								Cancel
+							</Button>
+							<Button
+								variant="regular"
+								disabled={!isPostValid}
+								onClick={handleSubmit}
+							>
 								Post
-							</button>
+							</Button>
 						</div>
 					</div>
 				</div>

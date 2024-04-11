@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { BsThreeDots } from 'react-icons/bs';
+import Button from 'components/button';
 import BackButton from 'components/back-button';
 import axiosInstance from 'api/axiosInstance';
 import isoStringToRelativeTime from 'utils/isoStringToRelativeTime';
@@ -63,9 +64,16 @@ function PostDetails({ currentUser }: { currentUser: CurrentUserType | null }) {
 								</button>
 
 								{isPopupOpen && (
-									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col items-center grow gap-4 z-10">
-										<Link to={`/update/${post._id}`}>Update</Link>
-										<button onClick={handleDelete}>Delete</button>
+									<div className="bg-white shadow-md p-4 min-w-40 max-w-64 top-6 right-0 absolute rounded-md flex flex-col gap-4 z-10">
+										<Button
+											variant="neutral"
+											onClick={() => navigate(`/update/${post._id}`)}
+										>
+											Update
+										</Button>
+										<Button variant="danger" onClick={handleDelete}>
+											Delete
+										</Button>
 									</div>
 								)}
 							</div>
